@@ -3,6 +3,7 @@ from databases import BotanInfo, UserGroupStats, Users, session, sa
 from aiogram import filters, types
 from datetime import datetime, timedelta
 from utils.text_templates import text_of_choosen_botan
+from filters import IsGroup
 import random
 
 def update_tables(botan_UserGroup:UserGroupStats, today):
@@ -27,7 +28,7 @@ def update_tables(botan_UserGroup:UserGroupStats, today):
             .update(update_UserGroupStats, synchronize_session=False)
     session.commit()
 
-@dp.message_handler(filters.Command("botan"))
+@dp.message_handler(IsGroup(), filters.Command("botan"))
 async def botan_reg(message:types.Message):
     botanInfo = session.query(BotanInfo).filter(BotanInfo.group_id == message.chat.id).one()
     today = datetime.now().date()

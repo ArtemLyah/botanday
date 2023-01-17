@@ -1,8 +1,9 @@
 from dispatcher import dp
 from databases import UserGroupStats, session, sa
 from aiogram import filters, types
+from filters import IsGroup
 
-@dp.message_handler(filters.Command("botan_leave"))
+@dp.message_handler(IsGroup(), filters.Command("botan_leave"))
 async def botan_leave(message:types.Message):
     is_user_Registed = session.query(UserGroupStats).filter(sa.and_(
         UserGroupStats.user_id == message.from_user.id,

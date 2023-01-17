@@ -1,8 +1,9 @@
 from dispatcher import dp
 from aiogram import filters, types
 from databases import session, Groups, BotanInfo
+from filters import IsGroup
 
-@dp.message_handler(filters.CommandStart())
+@dp.message_handler(IsGroup(), filters.CommandStart())
 async def start(message:types.Message):
     await message.answer(
         "🤓 Ботан дня 🤓 покаже хто у вашому чаті справжній розумник.\n"
@@ -14,7 +15,6 @@ async def start(message:types.Message):
         "/botan_top - Вивести топ розумників\n"
         "/botan_me - Показати мою статистику\n"
     )
-
     is_group_in_Groups = session.query(Groups)\
             .filter(Groups.t_group_id == message.chat.id).all()
     is_group_in_BotanInfo = session.query(BotanInfo)\
@@ -32,7 +32,7 @@ async def start(message:types.Message):
         )
         session.commit()
 
-@dp.message_handler(filters.CommandHelp())
+@dp.message_handler(IsGroup(), filters.CommandHelp())
 async def help(message:types.Message):
     await message.answer(
         "🤓 Ботан дня 🤓 покаже хто у вашому чаті справжній розумник.\n"

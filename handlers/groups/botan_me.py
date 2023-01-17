@@ -1,8 +1,9 @@
 from dispatcher import dp
 from databases import UserGroupStats, session, sa
 from aiogram import filters, types
+from filters import IsGroup
 
-@dp.message_handler(filters.Command("botan_me"))
+@dp.message_handler(IsGroup(), filters.Command("botan_me"))
 async def botan_me(message:types.Message):
     user_stats = session.execute(sa.select(UserGroupStats.botan_count).where(sa.and_(
         UserGroupStats.group_id == message.chat.id,

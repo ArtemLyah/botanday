@@ -1,8 +1,9 @@
 from dispatcher import dp
 from databases import Users, UserGroupStats, session, sa
 from aiogram import filters, types
+from filters import IsGroup
 
-@dp.message_handler(filters.Command("botan_reg"))
+@dp.message_handler(IsGroup(), filters.Command("botan_reg"))
 async def botan_reg(message:types.Message):
     is_user_in_Users = session.query(Users).filter(Users.t_user_id == message.from_user.id).all()
     is_user_Registed = session.query(UserGroupStats).filter(sa.and_(
