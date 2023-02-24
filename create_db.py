@@ -1,3 +1,3 @@
-from databases.connection import Base, engine
+from databases.connection import Database
 
-Base.metadata.create_all(engine)
+Database.create_tables()

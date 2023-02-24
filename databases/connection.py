@@ -9,6 +9,9 @@ class Database():
     engine = sa.create_engine(url)
     Base = declarative_base()
     
+    @classmethod
+    def create_tables(cls):
+        cls.Base.metadata.create_all(cls.engine)
 
     @classmethod
     def connect(cls):
