@@ -26,6 +26,6 @@ class UserGroupStats(Base):
 class BotanInfo(Base):
     __tablename__ = "BotanInfo"
     id = Column(Integer, primary_key=True)
-    user_id = Column(BigInteger, unique=True)
+    user_id = Column(BigInteger)
     group_id = Column(BigInteger, unique=True)
     update_time = Column(Date, default=datetime.min)
