@@ -6,9 +6,11 @@ from utils.set_bot_commands import set_default_commands
 import databases
 import filters
 import handlers
+from logs import logger
 
 async def on_startup(dp):
     await set_default_commands(dp)
+    logger.info("Start working")
     print("OK")
 
 if __name__ == "__main__":

@@ -2,9 +2,11 @@ from dispatcher import dp
 from databases import Users, UserGroupStats, session, sa
 from aiogram import filters, types
 from filters import IsGroup
+from logs import logger
 
 @dp.message_handler(IsGroup(), filters.Command("botan_reg"))
 async def botan_reg(message:types.Message):
+    logger.info(f"Registration new user < group_id= {message.chat.id}, user_id={message.from_user.id} >")
     is_user_in_Users = session.query(Users).filter(Users.t_user_id == message.from_user.id).all()
     is_user_Registed = session.query(UserGroupStats).filter(sa.and_(
         UserGroupStats.user_id == message.from_user.id,
