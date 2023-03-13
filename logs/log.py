@@ -7,4 +7,3 @@ logging.basicConfig(
     filemode="w"
 )
 logger = logging.getLogger("BotanLog")
-logger

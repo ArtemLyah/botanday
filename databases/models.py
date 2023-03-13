@@ -9,7 +9,7 @@ class Users(Database.Base):
     t_user_id = Column(BigInteger)
     fullname = Column(String)
     username = Column(String)
-
+    
 class Groups(Database.Base):
     __tablename__ = "Groups"
     id = Column(Integer, primary_key=True)

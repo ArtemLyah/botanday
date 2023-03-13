@@ -19,20 +19,20 @@ async def start(message:types.Message):
             .filter(Groups.t_group_id == message.chat.id).all()
     is_group_in_BotanInfo = session.query(BotanInfo)\
             .filter(BotanInfo.group_id == message.chat.id).all()
-
     if not is_group_in_Groups:
         session.add(Groups(
             t_group_id = message.chat.id, 
             fullname = message.chat.full_name
         ))
         session.commit()
+    
     if not is_group_in_BotanInfo:
-        session.add(
+        session.add(  
             BotanInfo(group_id = message.chat.id)
         )
         session.commit()
 
-@dp.message_handler(IsGroup(), filters.CommandHelp())
+@dp.message_handler(filters.CommandHelp())
 async def help(message:types.Message):
     await message.answer(
         "🤓 Ботан дня 🤓 покаже хто у вашому чаті справжній розумник.\n"
