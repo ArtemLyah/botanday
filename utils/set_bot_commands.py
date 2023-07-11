@@ -3,6 +3,7 @@ from aiogram import types
 async def set_default_commands(dp):
     await dp.bot.set_my_commands(
         [
+            types.BotCommand("start", "Перезавантажити бота"),
             types.BotCommand("help", "Вивести список команд"),
             types.BotCommand("botan_reg", "Зареєструватися у <b>ботан дня<\b>"),
             types.BotCommand("botan", "Показати ботана дня"),

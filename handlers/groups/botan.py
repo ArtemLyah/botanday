@@ -32,7 +32,7 @@ def update_tables(botan_UserGroup:UserGroupStats, today):
 @dp.message_handler(IsGroup(), filters.Command("botan"))
 async def botan(message:types.Message):
     logger.info(f"Handle botan < group_id={message.chat.id} >")
-    botanInfo = session.query(BotanInfo).filter(BotanInfo.group_id == message.chat.id).one()
+    botanInfo = session.query(BotanInfo).filter(BotanInfo.group_id == message.chat.id).first()
     today = datetime.now().date()
     if today >= botanInfo.update_time:
         participants_in_group = session.query(UserGroupStats).filter(
@@ -46,12 +46,12 @@ async def botan(message:types.Message):
 
             botan_User = session.query(Users)\
                 .filter(Users.t_user_id == botan_UserGroup.user_id)\
-                    .one()
+                    .first()
             await message.answer(text_of_choosen_botan(botan_User.username))
         else:
             await message.answer("В чаті нема ботанів 🤯🤯🤯 Може хтось зухвалиться зареєструватись?")
     else:
         botan_User = session.query(Users)\
             .filter(Users.t_user_id == botanInfo.user_id)\
-                .one()
+                .first()
         await message.answer(text_of_choosen_botan(botan_User.username))
