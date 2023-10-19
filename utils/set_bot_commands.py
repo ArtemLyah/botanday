@@ -5,7 +5,7 @@ async def set_default_commands(dp):
         [
             types.BotCommand("start", "Перезавантажити бота"),
             types.BotCommand("help", "Вивести список команд"),
-            types.BotCommand("botan_reg", "Зареєструватися у <b>ботан дня<\b>"),
+            types.BotCommand("botan_reg", "Зареєструватися у ботан дня"),
             types.BotCommand("botan", "Показати ботана дня"),
             types.BotCommand("botan_leave", "Покинути ботан дня"),
             types.BotCommand("botan_top", "Вивести топ розумників"),

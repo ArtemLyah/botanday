@@ -1,9 +1,11 @@
 import logging
 
-logging.basicConfig(
-    filename="./logs/fbot.log", 
-    level=logging.INFO, 
-    encoding='utf-8', 
-    filemode="w"
-)
+FORMAT = "[%(levelname)s] %(name)s | %(asctime)s\nmsg: %(message)s"
+
 logger = logging.getLogger("BotanLog")
+logger.setLevel(logging.DEBUG)
+
+fileHandler = logging.FileHandler('./logs/logs.out', 'w')
+form = logging.Formatter(FORMAT)
+fileHandler.setFormatter(form)
+logger.addHandler(fileHandler)
