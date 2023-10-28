@@ -3,16 +3,21 @@ from databases.connection import  Database
 from aiogram import types
 from aiogram.utils.exceptions import RetryAfter, TerminatedByOtherGetUpdates
 from traceback import format_exc
-
-from sqlalchemy.exc import OperationalError
+from sqlalchemy.exc import PendingRollbackError, OperationalError
+from asyncio import sleep
 from config import FATHER_ID
 from logs import logger
-
+from databases import session
+import os
 
 @dp.errors_handler()
 async def error_handler(update:types.Update, exception:Exception):
     if isinstance(exception, RetryAfter):
         logger.warning(exception)
+    elif isinstance(exception, (PendingRollbackError, OperationalError)):
+        os.system('sudo service postgresql restart')
+        await sleep(1)
+        session.rollback()
     else:
         await bot.send_message(FATHER_ID, str(exception))
         logger.error("=============================================================")
