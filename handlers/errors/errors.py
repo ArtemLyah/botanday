@@ -8,14 +8,14 @@ from asyncio import sleep
 from config import FATHER_ID
 from logs import logger
 from databases import session
-import os
+import subprocess
 
 @dp.errors_handler()
 async def error_handler(update:types.Update, exception:Exception):
     if isinstance(exception, RetryAfter):
         logger.warning(exception)
     elif isinstance(exception, (PendingRollbackError, OperationalError)):
-        os.system('sudo service postgresql restart')
+        subprocess.run(["./restartdb.sh"], shell=True)
         await sleep(1)
         session.rollback()
     else:
