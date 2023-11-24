@@ -14,10 +14,6 @@ import subprocess
 async def error_handler(update:types.Update, exception:Exception):
     if isinstance(exception, RetryAfter):
         logger.warning(exception)
-    elif isinstance(exception, (PendingRollbackError, OperationalError)):
-        subprocess.run(["./restartdb.sh"], shell=True)
-        await sleep(1)
-        session.rollback()
     else:
         await bot.send_message(FATHER_ID, str(exception))
         logger.error("=============================================================")
