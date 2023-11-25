@@ -18,3 +18,4 @@ database_settings = {
     "database":os.getenv("db_db")
 }
 
+create_tables = True

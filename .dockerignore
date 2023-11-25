@@ -1,0 +1,7 @@
+__*.py
+/utils/logs/logs.out
+**/__pycache__
+/venv
+/volumes
+/.env
+/.git
